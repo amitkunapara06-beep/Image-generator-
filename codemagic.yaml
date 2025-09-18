@@ -1,0 +1,21 @@
+workflows:
+  android-workflow:
+    name: Build Android APK
+    max_build_duration: 60
+    environment:
+      vars:
+        GRADLE_OPTS: "-Xmx3072m"
+    scripts:
+      - name: Fix Gradle permissions
+        script: chmod +x ./gradlew
+      - name: Build Debug APK
+        script: ./gradlew assembleDebug
+      - name: Build Release APK
+        script: ./gradlew assembleRelease
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
+      - app/build/outputs/apk/release/*.apk
+    publishing:
+      email:
+        recipients:
+          - "amitkunapara06@gmail.com"
